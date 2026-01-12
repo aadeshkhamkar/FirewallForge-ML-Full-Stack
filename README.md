@@ -105,26 +105,26 @@ Machine Learning logic is modular and accessed via backend APIs.
 
 ## Project Structure
 
+```text
 mini-lms-ml-platform/
-│
 ├── frontend/
-│ ├── components/
-│ ├── pages/
-│ ├── services/
-│ └── App.js
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   └── App.js
 │
 ├── backend/
-│ ├── routes/
-│ ├── models/
-│ ├── services/
-│ ├── ml_api/
-│ └── app.py
+│   ├── routes/
+│   ├── models/
+│   ├── services/
+│   ├── ml_api/
+│   └── app.py
 │
 ├── ml/
-│ ├── dataset/
-│ ├── train_model.py
-│ ├── predict.py
-│ └── model.pkl
+│   ├── dataset/
+│   ├── train_model.py
+│   ├── predict.py
+│   └── model.pkl
 │
 ├── requirements.txt
 └── README.md
