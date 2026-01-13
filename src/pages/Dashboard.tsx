@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 import {
   BookOpen,
   Users,
@@ -9,12 +9,13 @@ import {
   FileText,
   Award,
   Activity,
-} from 'lucide-react';
+} from "lucide-react";
 
-import DashboardLayout from '@/components/layout/DashboardLayout';
-import StatCard from '@/components/dashboard/StatCard';
+import DashboardLayout from "@/components/layout/DashboardLayout";
+import StatCard from "@/components/dashboard/StatCard";
 
-import { users, courses, analyticsData } from '@/data/mockData';
+import { courses, analyticsData } from "@/data/mockData";
+import { useAuth } from "@/context/AuthContext";
 
 import {
   LineChart,
@@ -27,27 +28,34 @@ import {
   PieChart,
   Pie,
   Cell,
-} from 'recharts';
+} from "recharts";
 
 const Dashboard: React.FC = () => {
   /* ===================================================== */
-  /* MOCK USER – DIRECTLY FROM mock-data.ts (NO AUTH) */
+  /* AUTHENTICATED USER */
   /* ===================================================== */
-  const user = users[0]; // guaranteed valid
+  const { user, isLoading } = useAuth();
 
   /* ===================================================== */
   /* DERIVED DATA */
   /* ===================================================== */
-  const enrolledCourses = courses.filter(course =>
-    user.course_enrolled.includes(course.id)
-  );
+  const enrolledCourses = user
+    ? courses.filter((course) => user.course_enrolled?.includes(course.id))
+    : [];
 
   const getGreeting = (): string => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good Morning';
-    if (hour < 17) return 'Good Afternoon';
-    return 'Good Evening';
+    if (hour < 12) return "Good Morning";
+    if (hour < 17) return "Good Afternoon";
+    return "Good Evening";
   };
+  if (isLoading) {
+    return (
+      <DashboardLayout>
+        <div className="p-8 text-muted-foreground">Loading dashboard...</div>
+      </DashboardLayout>
+    );
+  }
 
   /* ===================================================== */
   /* RENDER */
@@ -61,7 +69,8 @@ const Dashboard: React.FC = () => {
         className="mb-8"
       >
         <h1 className="text-3xl font-display font-bold mb-2">
-          {getGreeting()}, {user.full_name.split(' ')[0]}
+          {getGreeting()},{" "}
+          {(user?.full_name || user?.name || "Learner").split(" ")[0]}
         </h1>
         <p className="text-muted-foreground">
           Track learning performance, engagement, and AI insights
@@ -72,12 +81,32 @@ const Dashboard: React.FC = () => {
       {/* TOP STATS – 2 × 4 GRID */}
       {/* ===================================================== */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
-        <StatCard title="Total Users" value={analyticsData.total_users} icon={Users} />
-        <StatCard title="Active Learners" value={analyticsData.active_users} icon={Activity} />
-        <StatCard title="Total Courses" value={analyticsData.total_courses} icon={BookOpen} />
-        <StatCard title="Avg Completion" value={`${analyticsData.avg_completion_rate}%`} icon={TrendingUp} />
+        <StatCard
+          title="Total Users"
+          value={analyticsData.total_users}
+          icon={Users}
+        />
+        <StatCard
+          title="Active Learners"
+          value={analyticsData.active_users}
+          icon={Activity}
+        />
+        <StatCard
+          title="Total Courses"
+          value={analyticsData.total_courses}
+          icon={BookOpen}
+        />
+        <StatCard
+          title="Avg Completion"
+          value={`${analyticsData.avg_completion_rate}%`}
+          icon={TrendingUp}
+        />
 
-        <StatCard title="Enrolled Courses" value={enrolledCourses.length} icon={Award} />
+        <StatCard
+          title="Enrolled Courses"
+          value={enrolledCourses.length}
+          icon={Award}
+        />
         <StatCard title="Avg Study Time" value="14 hrs" icon={Clock} />
         <StatCard title="AI Accuracy" value="96%" icon={Brain} />
         <StatCard title="Resources Viewed" value="18,000" icon={FileText} />
