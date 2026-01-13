@@ -2,12 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Courses from "./pages/Courses";
-
 import Profile from "./pages/Profile";
 import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
@@ -25,22 +25,22 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Navigate to="/login" replace />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/courses/:id" element={<CourseAnalytics />} />
-            <Route path="/quiz" element={<Quiz />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="/assistant" element={<AIAssistant />} />
-            <Route path="/projects" element={<ProjectWorkspace />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+
+        {/* ❌ BrowserRouter REMOVED from here */}
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:id" element={<CourseAnalytics />} />
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/assistant" element={<AIAssistant />} />
+          <Route path="/projects" element={<ProjectWorkspace />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </TooltipProvider>
     </AuthProvider>
   </QueryClientProvider>

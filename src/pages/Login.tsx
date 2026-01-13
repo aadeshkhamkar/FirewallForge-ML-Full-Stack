@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { GraduationCap, Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
-import { useAuth } from '@/context/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { GraduationCap, Mail, Lock, Loader2, ArrowRight } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showSplash, setShowSplash] = useState(false);
   const { login, isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
@@ -22,29 +22,29 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const success = await login(email, password);
-    
+
     if (success) {
       setShowSplash(true);
       // Show splash screen for 3 seconds
       setTimeout(() => {
-        navigate('/dashboard');
+        navigate("/dashboard");
       }, 3000);
     } else {
       toast({
         title: "Login Failed",
         description: "Invalid email or password. Try: aarav.sharma@email.com",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   };
 
   // Demo accounts info
   const demoAccounts = [
-    { role: 'Student', email: 'aarav.sharma@email.com' },
-    { role: 'Instructor', email: 'priya.patel@email.com' },
-    { role: 'Admin', email: 'ananya.singh@email.com' },
+    { role: "Student", email: "aarav.sharma@email.com" },
+    { role: "Instructor", email: "priya.patel@email.com" },
+    { role: "Admin", email: "ananya.singh@email.com" },
   ];
 
   return (
@@ -84,16 +84,25 @@ const Login = () => {
                 Preparing your dashboard...
               </motion.p>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
               className="flex items-center justify-center gap-2"
             >
-              <div className="w-3 h-3 rounded-full bg-white animate-bounce" style={{ animationDelay: '0s' }} />
-              <div className="w-3 h-3 rounded-full bg-white animate-bounce" style={{ animationDelay: '0.2s' }} />
-              <div className="w-3 h-3 rounded-full bg-white animate-bounce" style={{ animationDelay: '0.4s' }} />
+              <div
+                className="w-3 h-3 rounded-full bg-white animate-bounce"
+                style={{ animationDelay: "0s" }}
+              />
+              <div
+                className="w-3 h-3 rounded-full bg-white animate-bounce"
+                style={{ animationDelay: "0.2s" }}
+              />
+              <div
+                className="w-3 h-3 rounded-full bg-white animate-bounce"
+                style={{ animationDelay: "0.4s" }}
+              />
             </motion.div>
           </div>
         </motion.div>
@@ -112,14 +121,17 @@ const Login = () => {
                 <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center">
                   <GraduationCap className="w-7 h-7 text-white" />
                 </div>
-                <span className="font-display text-2xl font-bold text-white">LearnHub</span>
+                <span className="font-display text-2xl font-bold text-white">
+                  LearnHub
+                </span>
               </div>
-              
+
               <h1 className="text-5xl font-display font-bold text-white leading-tight mb-6">
                 Empower Your Learning Journey
               </h1>
               <p className="text-lg text-white/80 max-w-md">
-                Access world-class courses, track your progress, and achieve your goals with our AI-powered learning platform.
+                Access world-class courses, track your progress, and achieve
+                your goals with our AI-powered learning platform.
               </p>
             </div>
 
@@ -147,7 +159,9 @@ const Login = () => {
                 <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center">
                   <GraduationCap className="w-7 h-7 text-primary-foreground" />
                 </div>
-                <span className="font-display text-2xl font-bold">LearnHub</span>
+                <span className="font-display text-2xl font-bold">
+                  LearnHub
+                </span>
               </div>
 
               <div className="text-center mb-10">
@@ -210,7 +224,9 @@ const Login = () => {
 
               {/* Demo Accounts */}
               <div className="mt-10 p-4 rounded-xl bg-secondary">
-                <p className="text-sm font-medium text-foreground mb-3">Demo Accounts (any password):</p>
+                <p className="text-sm font-medium text-foreground mb-3">
+                  Demo Accounts (any password):
+                </p>
                 <div className="space-y-2">
                   {demoAccounts.map((account) => (
                     <button
@@ -218,8 +234,12 @@ const Login = () => {
                       onClick={() => setEmail(account.email)}
                       className="w-full text-left p-2 rounded-lg hover:bg-background transition-colors text-sm"
                     >
-                      <span className="font-medium text-primary">{account.role}:</span>{' '}
-                      <span className="text-muted-foreground">{account.email}</span>
+                      <span className="font-medium text-primary">
+                        {account.role}:
+                      </span>{" "}
+                      <span className="text-muted-foreground">
+                        {account.email}
+                      </span>
                     </button>
                   ))}
                 </div>

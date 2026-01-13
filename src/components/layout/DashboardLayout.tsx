@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
-import Sidebar from './Sidebar';
-import { motion } from 'framer-motion';
+import { ReactNode } from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import Sidebar from "./Sidebar";
+import { motion } from "framer-motion";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -34,9 +34,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         animate={{ opacity: 1 }}
         className="lg:ml-64 ml-20 min-h-screen"
       >
-        <div className="p-6 lg:p-8">
-          {children}
-        </div>
+        <div className="p-6 lg:p-8">{children}</div>
       </motion.main>
     </div>
   );
